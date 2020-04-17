@@ -1,0 +1,48 @@
+import sys
+from pprint import pformat
+
+# def printmap(map):
+#     for row in map:
+#         print("".join(row),file=sys.stderr)
+#     print("\n",file=sys.stderr)
+
+directions = [[-1,0], [0,1], [1,0], [0,-1]]
+direction = 0
+bearing = ["^",">","v","<"]
+
+w, h = [int(i) for i in input().split()]
+n = int(input())
+# print([w,h,n],file=sys.stderr)
+map = [""] * h
+for i in range(len(map)): map[i] = list(input())
+
+for row in range(len(map)):
+    for col in range(len(map[row])):
+        if map[row][col] == "O":
+            pos = [row,col]
+            map[row][col] = bearing[direction]
+history = [pos]
+print(f"Origin: {pos[1]} {pos[0]}",file=sys.stderr)
+# print(f"Original Direction: {bearing[direction]}",file=sys.stderr)
+for i in range(w*h):
+    # printmap(map)
+    nextpos = [pos[0] + directions[direction][0], pos[1] + directions[direction][1]]
+    nextstep = map[nextpos[0]][nextpos[1]]
+    # print(f"Next step contains: {nextstep}",file=sys.stderr)
+    if nextpos == history[0]: break
+    if nextstep != "#":
+        # print("Stepping...",file=sys.stderr)
+        pos = nextpos
+        history.append(pos)
+    else:
+        # print("Turning...",file=sys.stderr)
+        direction = (direction + 1) % 4
+    map[pos[0]][pos[1]] = bearing[direction]
+    # print(f"Position: {pos[1]} {pos[0]}", file=sys.stderr)
+    # print(f"Direction: {direction}",file=sys.stderr)
+# printmap(map)
+# print(pformat(history),file=sys.stderr)
+# print(f"Steps taken: {len(history)}",file=sys.stderr)
+# print(f"Ending position: {n % len(history)}",file=sys.stderr)
+x = n % len(history)
+print(f"{history[x][1]} {history[x][0]}")
