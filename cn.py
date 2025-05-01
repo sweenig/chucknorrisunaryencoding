@@ -23,20 +23,13 @@ def cndecode(message):
     decrypted = ""
     output = ""
     for x in encrypt:
-      try:
-        a, b = x, next(encrypt)
-      except:
-        output = "INVALID"
-        break
-      if len(a)>2:
-        output = "INVALID"
-        break
+      try: a, b = x, next(encrypt)
+      except: break
+      if len(a)>2: break
       decrypted += "".join(str(len(a)%2)*len(b))
     while len(decrypted) > 0 and output != "INVALID":
       currword = decrypted[:7]
       output += chr(int(currword.zfill(8),2))
       decrypted = decrypted[7:]
-    if output != "INVALID" and cnencode(output) != message:
-      return "INVALID"
-    else:
-      return output
+    if output != "INVALID" and cnencode(output) != message: return "INVALID"
+    else: return output
