@@ -1,4 +1,5 @@
 import sys
+# import yaml
 from pprint import pformat
 
 def store_number_in_tree(tree, telephone):
@@ -19,11 +20,10 @@ n = int(input())
 
 # build the node tree
 data = {}
-for i in range(n):
-    number = input()
-    print(f"Number: {number}", file=sys.stderr)
-    data = store_number_in_tree(data, number)
+numbers = [input() for _ in range(n)] # read all numbers at once
+for number in numbers: data = store_number_in_tree(data, number)
 
 # output the tree and the count of all keys
+# print(yaml.dump(data, indent=4), file=sys.stderr)
 print(pformat(data),file=sys.stderr)
 print(count_all_keys(data))
