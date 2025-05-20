@@ -5,4 +5,4 @@ def get_best_time(times):
         seconds.append(int(h) * 3600 + int(m) * 60 + int(s))
     return times[seconds.index(min(seconds))]
 
-print(get_best_time([input() for i in range(int(input()))]))
+print(get_best_time([input() for _ in range(int(input()))]))
